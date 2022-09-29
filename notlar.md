@@ -10,3 +10,8 @@
 9-python manage.py runserver
 
 web scraping nedir araştır. seleniumla yapılıyor...bize kaynaklarını paylaşmayan uygulamalardan da veri çekebiliyoruz bu yöntemle... pythonun da kütüphanesi var beautifulsoup adında..
+
+api ile ilişki kurmak için requests kullandım. önce pip install requests yapıyoruz. sonra import requests...
+
+url den gelen json formatındaki veriyi .json() kullanarak python dictionary formatına çevirebiliriz... pprint i pprint ten import ederek python dictionary formatındaki veriyi daha düzenli okuyabiliriz..
+
