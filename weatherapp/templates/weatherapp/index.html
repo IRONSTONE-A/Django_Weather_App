@@ -27,11 +27,13 @@
     </form>
     <br> <hr>
 
-    {% for i in city_data %}
+    {% for i in city_data reversed %}
         {{i.city}} <br>
         {{i.temp}} &#8451 <br>
         <img src="http://openweathermap.org/img/wn/{{i.icon}}@2x.png" alt=""><br>
         {{i.desc}} <br>
+        <button> <a href="{% url "delete" i.city.id %} ">Delete</a> </button>
+        <hr>
     {% endfor %}
 
     <script src="{% static 'weatherapp/js/timeout.js' %}"></script>
