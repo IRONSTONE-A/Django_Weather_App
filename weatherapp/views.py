@@ -3,6 +3,7 @@ from decouple import config
 import requests
 from pprint import pprint
 from django.contrib import messages
+from .models import City 
 
 # Create your views here.
 def index(request):
@@ -15,20 +16,33 @@ def index(request):
         print(response.ok)
         
         if response.ok:
-            pass
+            content = response.json()
+            r_city = content["name"]
+            if City.objects.filter(name=r_city):
+                messages.warning(request, "City already Exist!")
+            else:
+                City.objects.create(name=r_city)
+                
         else:
             messages.warning(request, "There is no city" )
+            
+    city_data= []       
+    cities = City.objects.all()
     
-    url=f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
-    response = requests.get(url)
-    content = response.json()
-   
-    
-    context = {
+    for city in cities:
+        url=f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
+        response = requests.get(url)
+        content = response.json()
+        data = {
         "city" : content["name"],
         "temp" : content["main"]["temp"],
         "icon" : content["weather"][0]["icon"],
         "desc" : content["weather"][0]["description"]
+        }
+        city_data.append(data)
+    
+    context = {
+        "city_data" : city_data
     }
     
     
